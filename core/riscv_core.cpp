@@ -19,7 +19,7 @@ private:
         if (parsed.opcode.empty()) return true; // Комментарий/пусто
         
         // Функции-помощники для доступа к регистрам
-        auto& R = [&](int idx) -> uint32_t& { 
+        const auto& R = [&](int idx) -> uint32_t& { 
             return (idx == 0) ? cpu.regs[0] : cpu.regs[idx]; 
         };
         
