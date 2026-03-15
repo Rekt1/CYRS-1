@@ -1,0 +1,26 @@
+# В корне проекта создайте/обновите .gitignore:
+cat > .gitignore << 'EOF'
+# Скомпилированные файлы
+*.o
+*.so
+riscv_sim
+core/riscv_sim
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Blockly кэш
+static/blockly/*.js.map
+
+# Логи
+*.log
+sim.log
+EOF
+
+git add .gitignore
+git commit -m "chore: добавлен .gitignore"
+git push
