@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISC-V Симулятор</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Панель управления -->
+    <header class="control-panel">
+        <button id="btn-run">▶ Выполнить</button>
+        <button id="btn-step">⏭ Шаг</button>
+        <button id="btn-reset">↺ Сброс</button>
+        
+        <select id="syntax-mode">
+            <option value="russian">Русский синтаксис</option>
+            <option value="english">English syntax</option>
+        </select>
+        
+        <button id="btn-visual-mode">🧩 Визуальный режим</button>
+    </header>
+
+    <main class="workspace">
+        <!-- Левая колонка: редактор -->
+        <section class="panel code-panel">
+            <h3>Код</h3>
+            <textarea id="code-editor" spellcheck="false">// Начните писать код здесь
+// Пример на русском:
+метка:
+    сложи x1, x2, x3
+    ecall</textarea>
+            <div id="syntax-overlay"></div> <!-- Для подсветки -->
+        </section>
+
+        <!-- Центральная колонка: визуализация -->
+        <section class="panel viz-panel">
+            <h3>Состояние процессора</h3>
+            <div id="pc-display">PC: <span id="pc-value">0x00000000</span></div>
+            
+            <div class="registers-grid">
+                <!-- Генерируется через JS -->
+            </div>
+            
+            <h4>Память (первые 256 байт)</h4>
+            <div id="memory-view" class="memory-grid"></div>
+        </section>
+
+        <!-- Правая колонка: помощь + вывод -->
+        <section class="panel side-panel">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="help">📚 Помощь</button>
+                <button class="tab-btn" data-tab="output">📤 Вывод</button>
+            </div>
+            
+            <div id="help-tab" class="tab-content active">
+                <div id="help-list"></div>
+            </div>
+            <div id="output-tab" class="tab-content">
+                <pre id="output-log"></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Визуальный режим (скрыт по умолчанию) -->
+    <div id="visual-mode-overlay" class="hidden">
+        <div class="visual-editor">
+            <div id="blockly-area"></div>
+            <button id="btn-apply-blocks">Применить блоки → Код</button>
+            <button id="btn-close-visual">✕ Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Библиотеки -->
+    <script src="{{ url_for('static', filename='blockly/blockly_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/blocks_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/javascript_compressed.js') }}"></script>
+    
+    <!-- Наш код -->
+    <script src="{{ url_for('static', filename='js/syntax.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blocks/riscv_blocks.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blocks/generators_ru.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blocks/generators_en.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
